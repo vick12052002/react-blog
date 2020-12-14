@@ -162,10 +162,8 @@ export default function Header() {
   const { user, setUser } = useContext(AuthContext);
   const [mouseInMenu, setMouseInMenu] = useState(false);
   const location = useLocation();
-  console.log(location.pathname);
   useEffect(() => {
     const token = getAuthToken();
-    console.log(token);
     if (token) {
       getMe().then((userInfo) => {
         setUser(userInfo.data);
@@ -210,7 +208,7 @@ export default function Header() {
           {!user && (
             <>
               {location.pathname !== '/register' && <Nav to="/register">註冊</Nav>}
-              {location.pathname !== '/login' &&<Nav to="/login">登入</Nav>}
+              {location.pathname !== '/login' && <Nav to="/login">登入</Nav>}
             </>
           )}
         </MemberGroup>

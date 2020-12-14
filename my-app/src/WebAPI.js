@@ -55,3 +55,24 @@ export const getPosts = (limit, page) => {
     },
   }).then((res) => res.json());
 };
+
+
+export const getPost = (id) => {
+  const CURRENT_URL = `${BASE_URL}/posts/${id}`;
+  return fetch(CURRENT_URL, {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+    },
+  }).then((res) => res.json());
+};
+
+// export const getPostUserInfo = (postId,userId) => {
+//   const CURRENT_URL = `${BASE_URL}/posts/${postId}?userId=${userId}&_expand=user`;
+//   return fetch(CURRENT_URL, {
+//     method: 'GET',
+//     headers: {
+//       'content-type': 'application/json',
+//     },
+//   }).then((res) => res.json());
+// };

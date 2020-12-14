@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPosts } from '../../WebAPI';
-import { device } from '../../style/breakpoints';
 const Root = styled.div`
   margin: 30px auto;
 `;
@@ -37,7 +36,7 @@ function Post({ post, handleGetPostId }) {
   );
 }
 
-export default function PostPage() {
+export default function HomePage() {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     getPosts(3, null).then((posts) => {
