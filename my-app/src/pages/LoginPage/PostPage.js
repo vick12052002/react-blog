@@ -1,9 +1,10 @@
-import React, { useState,useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Button, ButtonLight } from '../../components/Button';
-import { login } from '../../WebAPI';
-import { setAuthToken } from '../../utils'
+import { login, getMe ,} from '../../WebAPI';
+import { setAuthToken, getAuthToken } from '../../utils';
+import { AuthContext } from '../../context';
 const LoginForm = styled.form`
   max-width: 320px;
   height: auto;
@@ -43,10 +44,12 @@ const SubmitBtn = styled(ButtonLight)`
   transform: translateX(-50%);
 `;
 
-export default function LoginPage() {
+export default function RegisterPage() {
+  const { user, setUser } = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
+  const history = useHistory();
   const handleLogin = (e) => {
     e.preventDefault();
     setErrorMessage(null);
@@ -57,7 +60,17 @@ export default function LoginPage() {
       if (!data.ok) {
         return setErrorMessage(data.message.toString());
       }
-      setAuthToken(data.token)
+      // console.log(data.token)
+      setAuthToken(data.token);
+      // console.log(getAuthToken())
+      getMe().then((userInfo) => {
+        // console.log(userInfo);
+        if (!userInfo.ok) {
+          return setErrorMessage(userInfo.message.toString());
+        }
+        setUser(userInfo.data);
+        history.push('/');
+      });
     });
   };
   const handleChangeValue = (e) => {
@@ -71,20 +84,20 @@ export default function LoginPage() {
     }
   };
   return (
-      <LoginForm>
-        <FormTitle>登入</FormTitle>
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-        <InputLabel name="username">
-          帳號：
-          <Input type="text" name="username" value={username} onChange={handleChangeValue} />
-        </InputLabel>
-        <InputLabel name="password">
-          密碼：
-          <Input type="password" name="password" value={password} onChange={handleChangeValue} />
-        </InputLabel>
-        <SubmitBtn type="submit" onClick={handleLogin}>
-          送出
-        </SubmitBtn>
-      </LoginForm>
+    <LoginForm>
+      <FormTitle>登入</FormTitle>
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      <InputLabel name="username">
+        帳號：
+        <Input type="text" name="username" value={username} onChange={handleChangeValue} />
+      </InputLabel>
+      <InputLabel name="password">
+        密碼：
+        <Input type="password" name="password" value={password} onChange={handleChangeValue} />
+      </InputLabel>
+      <SubmitBtn type="submit" onClick={handleLogin}>
+        送出
+      </SubmitBtn>
+    </LoginForm>
   );
 }

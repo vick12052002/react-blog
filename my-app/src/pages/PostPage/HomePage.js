@@ -37,7 +37,7 @@ function Post({ post, handleGetPostId }) {
   );
 }
 
-export default function PostPage() {
+export default function HomePage() {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     getPosts(3, null).then((posts) => {

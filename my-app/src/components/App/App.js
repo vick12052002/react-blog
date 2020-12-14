@@ -6,6 +6,8 @@ import Header from '../Header';
 import Footer from '../Footer';
 import HomePage from '../../pages/HomePage';
 import LoginPage from '../../pages/LoginPage';
+import RegisterPage from '../../pages/RegisterPage';
+
 const Container = styled.div`
   min-height: calc(100vh - 90px - 61px);
 `;
@@ -22,6 +24,9 @@ function App() {
             </Route>
             <Route exact path="/login">
               <LoginPage />
+            </Route>
+            <Route exact path="/register">
+              <RegisterPage />
             </Route>
           </Switch>
         </Container>
