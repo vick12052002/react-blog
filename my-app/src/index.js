@@ -1,14 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import './style/index.css'
-import Themes from './style/Themes'
-import { ThemeProvider } from 'styled-components'
-
+import './style/index.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 ReactDOM.render(
-  <ThemeProvider theme={Themes.primary}>
-    <App />
-  </ThemeProvider>,
+      <App />,
   document.getElementById('root')
 );
-

@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import { Link, useHistory } from 'react-router-dom';
-import { Button, ButtonLight } from '../../components/Button';
-import { login, getMe ,} from '../../WebAPI';
-import { setAuthToken, getAuthToken } from '../../utils';
+import { useHistory } from 'react-router-dom';
+import { ButtonLight } from '../../components/Button';
+import { login, getMe } from '../../WebAPI';
+import { setAuthToken } from '../../utils';
 import { AuthContext } from '../../context';
 const LoginForm = styled.form`
-  max-width: 320px;
+  max-width: 500px;
   height: auto;
   margin: 40px auto;
   box-shadow: 5px 5px 5px ${(props) => props.theme.shadow}44;
@@ -60,11 +60,8 @@ export default function RegisterPage() {
       if (!data.ok) {
         return setErrorMessage(data.message.toString());
       }
-      // console.log(data.token)
       setAuthToken(data.token);
-      // console.log(getAuthToken())
       getMe().then((userInfo) => {
-        // console.log(userInfo);
         if (!userInfo.ok) {
           return setErrorMessage(userInfo.message.toString());
         }

@@ -37,15 +37,15 @@ export const getMe = () => {
 };
 
 export const getPosts = (limit, page) => {
-  let CURRENT_URL = `${BASE_URL}/posts`;
-  if (page && limit) {
-    CURRENT_URL = `${BASE_URL}/posts?_page=${page}&_limit=${limit}`;
-  }
+  let CURRENT_URL = `${BASE_URL}/posts?_sort=id&_order=desc`;
   if (limit) {
     CURRENT_URL += `?_limit=${limit}`;
   }
   if (page) {
     CURRENT_URL += `?_page=${page}`;
+  }
+  if (page && limit) {
+    CURRENT_URL = `${BASE_URL}/posts?_page=${page}&_limit=${limit}`;
   }
   console.log(CURRENT_URL);
   return fetch(CURRENT_URL, {
@@ -55,7 +55,6 @@ export const getPosts = (limit, page) => {
     },
   }).then((res) => res.json());
 };
-
 
 export const getPost = (id) => {
   const CURRENT_URL = `${BASE_URL}/posts/${id}`;
@@ -67,12 +66,17 @@ export const getPost = (id) => {
   }).then((res) => res.json());
 };
 
-// export const getPostUserInfo = (postId,userId) => {
-//   const CURRENT_URL = `${BASE_URL}/posts/${postId}?userId=${userId}&_expand=user`;
-//   return fetch(CURRENT_URL, {
-//     method: 'GET',
-//     headers: {
-//       'content-type': 'application/json',
-//     },
-//   }).then((res) => res.json());
-// };
+export const addPost = (title, content) => {
+  const token = getAuthToken();
+  return fetch(`${BASE_URL}/posts`, {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${token}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      title,
+      body: content,
+    }),
+  }).then((res) => res.json());
+};

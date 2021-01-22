@@ -3,6 +3,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPost } from '../../WebAPI';
 import { Button } from '../../components/Button';
+import Loading from '../../components/Loading';
+
 const Root = styled.div`
   margin: 0 auto;
 `;
@@ -46,25 +48,7 @@ const BackBtn = styled(Button)`
   margin: 30px auto;
   transform: translate(-50%);
 `;
-const LoadingWrapper = styled.div`
-  width: 100vw;
-  background-color: #eeeeea9e;
-  height: 80vh;
-  padding:40px 0;
-`;
-const LoadingTitle = styled.h2`
-  color: #aaa;
-  font-weight: bold;
-  text-align:center;
-  
-`;
-const LoadingPage = () => {
-  return (
-    <LoadingWrapper>
-      <LoadingTitle>Loading ...</LoadingTitle>
-    </LoadingWrapper>
-  );
-};
+
 
 function Post({ data }) {
   return (
@@ -82,7 +66,7 @@ export default function PostPage() {
   const [post, setPost] = useState(null);
   const history = useHistory();
   let { id } = useParams();
-  function handleGoback() {
+  function handleGoBack() {
     history.goBack();
   }
 
@@ -98,9 +82,9 @@ export default function PostPage() {
           <Post data={post} />
         </Container>
       ) : (
-        <LoadingPage />
+        <Loading />
       )} 
-      <BackBtn onClick={handleGoback}>回上一頁</BackBtn>
+      <BackBtn onClick={handleGoBack}>回上一頁</BackBtn>
     </Root>
   );
 }

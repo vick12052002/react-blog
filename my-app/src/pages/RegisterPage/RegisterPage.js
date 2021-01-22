@@ -6,7 +6,7 @@ import { register, getMe } from '../../WebAPI';
 import { setAuthToken, getAuthToken } from '../../utils';
 import { AuthContext } from '../../context';
 const RegisterForm = styled.form`
-  max-width: 320px;
+  max-width: 500px;
   height: auto;
   margin: 40px auto;
   box-shadow: 5px 5px 5px ${(props) => props.theme.shadow}44;
